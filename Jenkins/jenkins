@@ -29,8 +29,8 @@ node () {
         }  
 
         stage ('Docker Build') {
-            sh "ls"
             sh "cd Docker"
+            sh "ls"
             sh "docker build -t ${ecrUrl}/${imageTag} ."
         }
 
