@@ -72,6 +72,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
     }
 
     // Send notifications
-    slackSend(webhookUrl: 'https://hooks.slack.com/services/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', 
+  //  slackSend(webhookUrl: 'https://hooks.slack.com/services/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', 
               channel: '#trainee-q4', color: colorCode, message: summary)
 }
