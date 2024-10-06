@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-list-service
+spec:
+  type: LoadBalancer  # To expose the service externally
+  selector:
+    app: todo-list
+  ports:
+  - protocol: TCP
+    port: 80  # The port exposed externally
+    targetPort: 80  # The port your application listens to
+  - protocol: TCP
+    port: 3306  # For MySQL, if needed
+    targetPort: 3306
