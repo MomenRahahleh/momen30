@@ -1,4 +1,4 @@
-def branchName = "${params.branchName}"
+def branchName = "main"
 def gitUrl = "git@github.com:MomenRahahleh/momen30.git"
 def serviceName = "todo_list"
 def EnvName = "dev"
@@ -14,7 +14,7 @@ node () {
         script {
             properties([
                 parameters([
-                    string(defaultValue: 'derar', name: 'branchName')
+                    string(defaultValue: 'main', name: 'branchName')
                 ])
             ])
         }
