@@ -29,10 +29,15 @@ node () {
         }  
 
         stage ('Docker Build') {
-            sh "cd Docker"
-            sh "ls"
-            sh "docker build -t ${ecrUrl}/${imageTag} ."
+    steps {
+        script {
+            // Change directory to Docker and then run the build
+            dir('Docker') {
+                sh "docker build -t ${ecrUrl}/${imageTag} ."
+            }
         }
+    }
+}
 
         stage ('Docker Push') {
             sh "docker push ${ecrUrl}/${imageTag}"
