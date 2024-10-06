@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: todo-list-container
-        image: 727245885999.dkr.ecr.us-east-2.amazonaws.com/momenecr:dev-1  # Make sure this image tag exists in your ECR
+        image: 727245885999.dkr.ecr.us-east-2.amazonaws.com/momenecr:dev_1  # Make sure this image tag exists in your ECR
         ports:
         - containerPort: 80  # HTTP server port
         - containerPort: 3306  # Database port (MySQL, if relevant)
