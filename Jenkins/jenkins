@@ -37,7 +37,9 @@ node () {
         }  
 
         stage ("Docker Run Deployment") {
-            sh "docker run -d -p 80:80 -p 3306:3306 ${ecrUrl}/${imageTag}"
+            //sh "docker run -d -p 80:80 -p 3306:3306 ${ecrUrl}/${imageTag}"
+            sh "kubectl apply -f todo/deployment.yaml"
+            sh "kubectl apply -f todo/service.yaml"
         }
 
         stage('Remove Local Images') {
