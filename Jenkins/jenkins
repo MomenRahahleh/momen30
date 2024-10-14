@@ -1,5 +1,5 @@
-/def branchName               =  "main"
-def gitUrl                   =  "https://github.com/MomenRahahleh/momen30.git"
+//def branchName               =  "main"
+def gitUrl                   =  "git@github.com:MomenRahahleh/momen30.git"
 def serviceName              =  "todo-list"
 def EnvName                  =  "dev"
 def imageTag                 =  "momenecr:${EnvName}_${BUILD_NUMBER}"
