@@ -52,8 +52,10 @@ deployment:
     enabled: false
   serviceDefault:
     enabled: false
-  migrationjob:  # Define the migrationjob here
-    enabled: false  # Set to true if you need the migration job
+  migrationjob:
+  # Define the migrationjob here
+    enabled: false
+    # Set to true if you need the migration job
 
   
   
