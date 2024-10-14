@@ -36,7 +36,7 @@ deployment:
   enabled: true
   replicaCount: 1
   image:
-    repository: "727245885999.dkr.ecr.us-east-2.amazonaws.com"
+    repository: "727245885999.dkr.ecr.us-east-2.amazonaws.com/todo-list"
     tag: ""  # Set the correct tag
     pullPolicy: IfNotPresent
   resources:
@@ -59,33 +59,29 @@ service:
   enabled: true
   type: NodePort
   port:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
       protocol: TCP
       name: http
 
 autoscaling:
-  enabled: true
-  # Set this to true if you want to enable autoscaling
+  enabled: true  # Set this to true if you want to enable autoscaling
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
 
 externalSecretgcp:
   creationPolicy: "Owner"  # or set as needed, e.g., "Orphan", "Retain", etc.
-  enabled: false
-  # Set this to true if you want to enable external secrets for GCP
+  enabled: false  # Set this to true if you want to enable external secrets for GCP
   secretName: "gcp-secret-name"  # Example secret name
   
 externalSecret:
-  enabled: false
-  # Set to true if you want to enable external secrets
+  enabled: false  # Set to true if you want to enable external secrets
   secretName: "your-secret-name"  # Name of the secret
   key: "your-secret-key"  # Key within the secret
   
 livenessProbe:
-  enabled: false
-  # Set to true if you want to enable liveness probe
+  enabled: false  # Set to true if you want to enable liveness probe
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 2
@@ -93,8 +89,7 @@ livenessProbe:
   successThreshold: 1
 
 readinessProbe:
-  enabled: false
-  # Set to true if you want to enable readiness probe
+  enabled: false  # Set to true if you want to enable readiness probe
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 2
@@ -102,12 +97,10 @@ readinessProbe:
   successThreshold: 1
 
 goDBMigration:
-  enabled: false
-  # Set to true if you want to enable database migration
+  enabled: false  # Set to true if you want to enable database migration
   # Add other parameters as needed for migration, e.g., database URL, user, etc.
 rustDBMigration:
-  enabled: false
-  # Set this to true if you want to enable the Rust DB migration job
+  enabled: false  # Set this to true if you want to enable the Rust DB migration job
 cronjob:
   enabled: false
 
@@ -115,7 +108,7 @@ ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: "momen.yousefneedsajob.click"
+    - host: "waseem.yousefneedsajob.click"
       http:
         paths:
           - path: /
@@ -126,10 +119,7 @@ ingress:
                 port:
                   number: 8080
   tls:
-    enabled: false
-    # Set this to true if you want to enable TLS
-    secretName: false
-    # This is required if TLS is enabled
+    enabled: false  # Set this to true if you want to enable TLS
+    secretName: false  # This is required if TLS is enabled
 podMonitor:
-  enabled: false
-  # Set this to true if you want to enable PodMonitor
+  enabled: false  # Set this to true if you want to enable PodMonitor
