@@ -36,7 +36,7 @@ deployment:
   enabled: true
   replicaCount: 1
   image:
-    repository: "727245885999.dkr.ecr.us-east-2.amazonaws.com/momenecr"
+    repository: "727245885999.dkr.ecr.us-east-2.amazonaws.com"
     tag: ""  # Set the correct tag
     pullPolicy: IfNotPresent
   resources:
@@ -59,8 +59,8 @@ service:
   enabled: true
   type: NodePort
   port:
-    - port: 8080
-      targetPort: 8080
+    - port: 80
+      targetPort: 80
       protocol: TCP
       name: http
 
