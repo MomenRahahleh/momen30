@@ -76,7 +76,7 @@ externalSecretgcp:
   secretName: "gcp-secret-name"  # Example secret name
   
 externalSecret:
-  enabled: false  # Set to true if you want to enable external secrets
+  enabled: true  # Set to true if you want to enable external secrets
   secretName: "your-secret-name"  # Name of the secret
   key: "your-secret-key"  # Key within the secret
   
