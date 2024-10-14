@@ -4,7 +4,8 @@ nameOverride: "todo-list"
 fullnameOverride: "todo-list"
 cluster: "todo_cluster"
 # Specify the environment name (dev, staging, production, etc.)
-environment: "dev" # Default environment, will be overridden by Jenkins
+environment: "dev"
+# Default environment, will be overridden by Jenkins
 
 # Labels to attach to all Kubernetes resources created by this chart
 commonLabels:
@@ -17,7 +18,8 @@ serviceAccount:
   annotations: {}
   name: "todo-list"
   multiServiceAccounts:
-    enabled: false  # Set this to true if you want to enable multi-service accounts
+    enabled: false
+    # Set this to true if you want to enable multi-service accounts
 
 persistence:
   enabled: false
