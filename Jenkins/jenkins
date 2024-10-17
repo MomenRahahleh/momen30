@@ -52,10 +52,27 @@ stage ("Get the app code")
 
         stage ("change image tag") 
       {
-      sh ("cd ${helmDir}; pathEnv=\".deployment.image.tag\" valueEnv=\"${imageTag}\" yq 'eval(strenv(pathEnv)) = strenv(valueEnv)' -i values.yaml ")    
-      sh ("cd ${helmDir}; pathEnv=\".appVersion\" valueEnv=\"${imageTag}\" yq 'eval(strenv(pathEnv)) = strenv(valueEnv)' -i Chart.yaml ")
-      sh ("cd ${helmDir}; git pull ;git add values.yaml; git add Chart.yaml; git commit -m '${serviceName}_${namespace}_build_${BUILD_NUMBER}' ;git push ${gitUrl}")
-       }
+            // Change image tag in values.yaml
+            sh """
+            cd ${helmDir}
+            yq eval -i '.deployment.image.tag = "${imageTag}"' values.yaml
+            """
+            
+            // Change appVersion in Chart.yaml
+            sh """
+            cd ${helmDir}
+            yq eval -i '.appVersion = "${imageTag}"' Chart.yaml
+            """
+            
+            // Commit changes to git
+            sh """
+            cd ${helmDir}
+            git pull
+            git add values.yaml
+            git add Chart.yaml
+            git commit -m '${serviceName}_${namespace}_build_${BUILD_NUMBER}'
+            git push ${gitUrl}
+            """       }
 
         stage('Remove Local Images') {
             sh "docker rmi -f ${ecrUrl}/${imageTag} || :"
