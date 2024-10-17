@@ -5,7 +5,7 @@ def EnvName                  =  "dev"
 def imageTag                 =  "${EnvName}_${BUILD_NUMBER}"
 def awsRegion                =  "us-east-2"
 def ecrUrl                   =  "727245885999.dkr.ecr.us-east-2.amazonaws.com"
-def helmDir                  = "helm/charts/slashtec-helm-chart"
+def helmDir                  = "slashtec/momen/helm/charts/slashtec-helm-chart"
 
 
 node () {
@@ -21,10 +21,20 @@ node () {
             ])
         }
 
-        stage ("Code Checkout") {
-            checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[url: "${gitUrl}"]]] )
-            sh "rm -rf .git"   
-        }
+stage ("Get the app code")
+    {
+      checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]] , extensions: [], userRemoteConfigs: [[ url: "${gitUrl}"]]])    
+        sh "rm -rf ~/workspace/\"${JOB_NAME}\"/slashtec"
+        sh "mkdir ~/workspace/\"${JOB_NAME}\"/slashtec  ; cd slashtec ; git clone -b main ${gitUrl} "
+        //sh "pwd"
+        sh("cp slashtec/momen/Docker/Dockerfile . ")
+        sh("cp slashtec/momen/Docker/index.html .")   
+        sh("cp slashtec/momen/Docker/info.php .")
+        sh("cp slashtec/momen/Docker/nginx.conf .")
+        sh("cp slashtec/momen/Docker/supervisord.conf .")
+        sh("cp slashtec/momen/Docker/todo_list.php .")        
+
+}
 
         stage ('ECR Login') {
             sh "aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin ${ecrUrl}"
