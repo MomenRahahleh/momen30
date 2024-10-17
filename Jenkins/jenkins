@@ -27,12 +27,12 @@ stage ("Get the app code")
         sh "rm -rf ~/workspace/\"${JOB_NAME}\"/slashtec"
         sh "mkdir ~/workspace/\"${JOB_NAME}\"/slashtec  ; cd slashtec ; git clone -b main ${gitUrl} "
         //sh "pwd"
-        sh("cp momen/slashtec/momen30/Docker/Dockerfile . ")
-        sh("cp momen/slashtec/momen30/Docker/index.html .")   
-        sh("cp momen/slashtec/momen30/Docker/info.php .")
-        sh("cp momen/slashtec/momen30/Docker/nginx.conf .")
-        sh("cp momen/slashtec/momen30/Docker/supervisord.conf .")
-        sh("cp momen/slashtec/momen30/Docker/todo_list.php .")        
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/Dockerfile . ")
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/index.html .")   
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/info.php .")
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/nginx.conf .")
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/supervisord.conf .")
+        sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/todo_list.php .")        
 
 }
 
