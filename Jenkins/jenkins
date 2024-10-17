@@ -5,7 +5,7 @@ def EnvName                  =  "dev"
 def imageTag                 =  "${EnvName}_${BUILD_NUMBER}"
 def awsRegion                =  "us-east-2"
 def ecrUrl                   =  "727245885999.dkr.ecr.us-east-2.amazonaws.com"
-
+def helmDir                  = "helm/charts/slashtec-helm-chart"
 
 
 node () {
@@ -40,17 +40,22 @@ node () {
             sh "docker push ${ecrUrl}/${serviceName}:${imageTag}"
         }  
 
-        stage ("Helm Deployment") {
-          sh " aws eks update-kubeconfig --region us-east-2 --name waseemeks-dev"  
-             sh """
-                helm upgrade --install  slashtec Slashtec-Helm-Chart-main/charts/slashtec-helm-chart \
-                --namespace ${EnvName} \
-                --set deployment.replicaCount:.image.repository=${ecrUrl}/${serviceName} \
-                --set deployment.replicaCount.image.tag=${imageTag} \
-                --create-namespace 
+        stage ("change image tag") {
+ //         sh " aws eks update-kubeconfig --region us-east-2 --name waseemeks-dev"  
+ //            sh """
+ //               helm upgrade --install  slashtec Slashtec-Helm-Chart-main/charts/slashtec-helm-chart \
+ //               --namespace ${EnvName} \
+ //               --set deployment.replicaCount:.image.repository=${ecrUrl}/${serviceName} \
+ //               --set deployment.replicaCount.image.tag=${imageTag} \
+ //               --create-namespace 
                
                 
-            """
+  //          """
+
+      sh ("cd ${helmDir}; pathEnv=\".deployment.image.tag\" valueEnv=\"${imageTag}-${commitId}\" yq 'eval(strenv(pathEnv)) = strenv(valueEnv)' -i values.yaml ")    
+      sh ("cd ${helmDir}; pathEnv=\".appVersion\" valueEnv=\"${imageTag}-${commitId}\" yq 'eval(strenv(pathEnv)) = strenv(valueEnv)' -i Chart.yaml ")
+      sh ("cd ${helmDir}; git pull ;git add values.yaml; git add Chart.yaml; git commit -m '${serviceName}_${namespace}_build_${BUILD_NUMBER}' ;git push ${gitUrl}")
+   
         }
 
         stage('Remove Local Images') {
