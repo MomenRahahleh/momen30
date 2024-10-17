@@ -24,8 +24,8 @@ node () {
 stage ("Get the app code")
     {
       checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]] , extensions: [], userRemoteConfigs: [[ url: "${gitUrl}"]]])    
-        sh "rm -rf ~/workspace/\"${JOB_NAME}\"/slashtec"
-        sh "mkdir ~/workspace/\"${JOB_NAME}\"/slashtec  ; cd slashtec ; git clone -b main ${gitUrl} "
+        sh "rm -rf ~/workspace/momen@tmp/slashtec"
+        sh "mkdir ~/workspace/momen@tmp/slashtec  ; cd slashtec ; git clone -b main ${gitUrl} "
         //sh "pwd"
         sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/Dockerfile . ")
         sh("cp /var/lib/jenkins/workspace/momen/slashtec/momen30/Docker/index.html .")   
