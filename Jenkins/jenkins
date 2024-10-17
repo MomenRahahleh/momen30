@@ -42,7 +42,7 @@ stage ("Get the app code")
 
         stage ('Docker Build') {
             dir('Docker') {
-                sh "docker build -t ${ecrUrl}/${serviceName}:${imageTag} ."
+                sh "cd /var/lib/jenkins/workspace/momen ; docker build -t ${ecrUrl}/${serviceName}:${imageTag} -f Dockerfile ."
             }
         }
 
